@@ -9,11 +9,14 @@ class CheckoutTotal extends PureComponent {
     tax: 0,
   };
 
+  // when page loads starting the calcTotal func
+
   componentDidMount() {
     this.calculateTotal();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  // saving the changes after reload
+  componentDidUpdate(prevProps, prevState) {
     const { cartItems } = this.props;
     const { selectedCurrency } = this.context;
 
@@ -24,6 +27,8 @@ class CheckoutTotal extends PureComponent {
       this.calculateTotal();
     }
   }
+  // function that takes cartItem prices and selected currency,
+  // calcs total amount acording to given information
   calculateTotal() {
     const { cartItems } = this.props;
     const { selectedCurrency } = this.context;
@@ -40,7 +45,9 @@ class CheckoutTotal extends PureComponent {
         return total;
       }
     }, 0);
-    console.log(total);
+    // console.log(total);
+
+    // calculating the total costs + tax
     const tax = total * 0.21;
     const totalCost = tax + total;
     this.setState({

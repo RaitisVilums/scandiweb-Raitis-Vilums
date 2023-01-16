@@ -4,6 +4,7 @@ import { CurrencyContext } from "../../../Context/currency.context";
 export class CartTotal extends PureComponent {
   static contextType = CurrencyContext;
 
+  // this component has the same logic as the product total component
   state = {
     totalCost: 0,
     tax: 0,
@@ -13,7 +14,7 @@ export class CartTotal extends PureComponent {
     this.calculateTotal();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState) {
     const { cartItems } = this.props;
     const { selectedCurrency } = this.context;
 

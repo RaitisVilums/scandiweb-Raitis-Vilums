@@ -32,6 +32,8 @@ You may also see any lint errors in the console.
 
 ### 6) html-react-parser for the description on products
 
+### To go back to CategoryPage just use any of the Nav Items!
+
 ## Reach Me Out:
 
 rvilums80@gmail.com

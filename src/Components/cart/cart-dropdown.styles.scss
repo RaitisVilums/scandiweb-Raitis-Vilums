@@ -1,12 +1,13 @@
 .backdrop {
   position: absolute;
-  width: 220vh;
+  width: 100vw;
   height: 90vh;
-  top: 5rem;
+  top: 8rem;
   right: -10rem;
   background: #000;
   opacity: 0.2;
   cursor: default;
+  overflow: hidden;
 }
 
 .dropdown {
@@ -157,9 +158,14 @@
 }
 
 .check {
-  background: green;
+  background: #5ece7b;
   border: 1px solid transparent;
   color: white;
+
+  &:hover {
+    border: 1px solid #1d1f22;
+    color: #1d1f22;
+  }
 }
 
 .quantity {

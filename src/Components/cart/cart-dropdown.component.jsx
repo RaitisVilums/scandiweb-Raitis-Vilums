@@ -50,9 +50,7 @@ export class CartDropdown extends PureComponent {
               return (
                 <div key={id} className="dropdown-product">
                   <div className="dropdown-product-description">
-                    <h2>
-                      <span className="dropdown-product-brand">{brand}</span>
-                    </h2>
+                    <h2 className="dropdown-product-brand">{brand}</h2>
                     <h2 className="dropdown-product-name"> {name} </h2>
                     <span className="dropdown-product-price">
                       <ProductPrice prices={prices} />
@@ -84,14 +82,14 @@ export class CartDropdown extends PureComponent {
                       </Fragment>
                     ))}
                   </div>
-                  <div className="dropdown-product-increment">
-                    <IncrementQuantity
-                      id={id}
-                      quantity={quantity}
-                      classBTN={`btn-increment`}
-                      classDIV={`dropdown-product-increment`}
-                    />
-                  </div>
+
+                  <IncrementQuantity
+                    id={id}
+                    quantity={quantity}
+                    classBTN={`btn-increment`}
+                    classDIV={`dropdown-product-increment`}
+                  />
+
                   <div className="dropdown-product-image">
                     <img src={gallery[0]} alt={id} />
                   </div>

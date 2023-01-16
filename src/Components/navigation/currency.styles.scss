@@ -1,0 +1,47 @@
+.currency {
+  position: relative;
+  z-index: 5000;
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  &-span {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #1d1f22;
+  }
+  &-dropdown {
+    padding: 0.5rem;
+    cursor: pointer;
+    background: url("../../Assets/dropdown.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+.currencies {
+  display: flex;
+  background: #ffffff;
+  padding: 2rem 0.5rem;
+  row-gap: 1rem;
+  flex-direction: column;
+  text-align: center;
+  position: absolute;
+  width: 8rem;
+  color: #1d1f22;
+  font-size: 1.8rem;
+  top: 3rem;
+  right: -3rem;
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+
+  &-choice {
+    padding: 0.5rem 0;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background: #eeeeee;
+    }
+  }
+}
+.rotate {
+  transform: rotate(180deg);
+}

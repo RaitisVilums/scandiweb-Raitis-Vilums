@@ -1,0 +1,143 @@
+.product-card {
+  display: flex;
+  padding: 10rem 10rem;
+  gap: 10rem;
+}
+
+.description {
+  &-title {
+    margin-bottom: 4rem;
+  }
+  &-checkbox {
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-price {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #1d1f22;
+    margin-bottom: 2rem;
+  }
+
+  &-para {
+    width: 30rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #1d1f22;
+  }
+}
+
+.input {
+  &-wrapper {
+    display: flex;
+  }
+
+  &-attribute {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    // height: 4rem;
+    border: 1px solid black;
+    // z-index: -1;
+    & p {
+      position: absolute;
+      font-size: 2rem;
+      z-index: -2;
+      // margin-right: 1rem;
+    }
+  }
+
+  &-color {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    margin-right: 0.8rem;
+
+    & div {
+      position: absolute;
+      z-index: -1;
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+  }
+
+  &-checkbox {
+    width: 6rem;
+    height: 4.5rem;
+    border: 1px solid #1d1f22;
+    color: #1d1f22;
+    cursor: pointer;
+    appearance: none;
+    border-color: transparent;
+    background-color: transparent;
+    margin-right: 1rem;
+  }
+}
+
+.btn-add {
+  padding: 2rem 10rem;
+  margin-bottom: 4rem;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: 2px solid transparent;
+  background: #5ece7b;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background: transparent;
+    color: #1d1f22;
+    border: 2px solid #5ece7b;
+  }
+}
+
+// ! Utility clases
+
+.flex {
+  display: flex;
+  gap: 4rem;
+  &-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+}
+label {
+  color: #1d1f22;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.margin-btm {
+  margin-bottom: 1rem;
+}
+.brand {
+  font-size: 3rem;
+  color: #1d1f22;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.title {
+  font-size: 3rem;
+  color: #1d1f22;
+  font-weight: 400;
+}
+
+.small {
+  width: 8rem;
+  height: 8rem;
+}
+.big {
+  width: 61rem;
+  height: 51rem;
+}

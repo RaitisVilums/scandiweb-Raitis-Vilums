@@ -1,0 +1,19 @@
+.cart-wrapper {
+  position: relative;
+  cursor: pointer;
+  margin-top: 0.2rem;
+
+  &-quantity {
+    position: absolute;
+    background: #000;
+    color: white;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50rem;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    right: -1rem;
+    top: -0.7rem;
+  }
+}

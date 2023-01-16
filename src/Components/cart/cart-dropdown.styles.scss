@@ -1,0 +1,167 @@
+.backdrop {
+  position: absolute;
+  width: 220vh;
+  height: 90vh;
+  top: 5rem;
+  right: -10rem;
+  background: #000;
+  opacity: 0.2;
+  cursor: default;
+}
+
+.dropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #ffffff;
+  z-index: 1;
+  padding: 3.2rem 1.5rem;
+  width: 32.5rem;
+  max-height: 67.7rem;
+  right: 5rem;
+  top: 5rem;
+  color: #1d1f22;
+  cursor: default;
+
+  &-heading {
+    display: flex;
+    margin-bottom: 3.2rem;
+
+    & h1 {
+      font-size: 1.6rem;
+    }
+    & p {
+      font-size: 1.6rem;
+    }
+  }
+  &-total {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+  }
+  &-btns {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.dropdown-product {
+  width: 100%;
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-direction: row;
+  padding: 0;
+  &-description {
+    display: flex;
+    width: 13.6rem;
+    padding: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  &-brand {
+    font-weight: 300;
+    font-size: 1.6rem;
+    line-height: 160%;
+  }
+  &-name {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 160%;
+  }
+  &-price {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 160%;
+    margin-bottom: 0.8rem;
+  }
+  &-increment {
+    height: 19rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &-image {
+    height: 19rem;
+    width: 12.1rem;
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.product-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+  z-index: 5;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+    height: 0.2rem;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(57, 55, 72, 0.22);
+  }
+}
+
+.btn-increment {
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 1.2rem;
+  background: transparent;
+  border: 1px solid #1d1f22;
+  cursor: pointer;
+}
+.checkbox-change {
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+  p {
+    font-size: 1rem;
+  }
+}
+.color-checkbox {
+  width: 2rem;
+  height: 2rem;
+}
+.checkbox-label {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  color: #1d1f22;
+  margin-bottom: 0.8rem;
+}
+.justawrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+
+.check {
+  background: green;
+  border: 1px solid transparent;
+  color: white;
+}
+
+.quantity {
+  font-size: 1.6rem;
+}

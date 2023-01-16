@@ -15,6 +15,8 @@ export class ProductCard extends PureComponent {
       selectedAttribute: {},
     };
   }
+
+  // handling the selected attributes
   handleChange(event) {
     const { name, value, checked } = event.target;
     let selectedAttribute = { ...this.state.selectedAttribute };
@@ -29,6 +31,7 @@ export class ProductCard extends PureComponent {
     // console.log(selectedAttribute);
   }
 
+  // reseting selected attributes
   resetSelectedAttribute = (productID) => {
     if (productID !== this.state.currentProductID) {
       this.setState({
@@ -38,6 +41,7 @@ export class ProductCard extends PureComponent {
     }
   };
 
+  // checking if the product id changes,reseting the attributes
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.productid !== this.props.match.params.productid
@@ -52,13 +56,15 @@ export class ProductCard extends PureComponent {
     const { addItemToCart } = this.context;
 
     return (
+      // using Query to fetch data from Apollo server and GraphQl
+      // using match.params to get chosen products ID
       <Query query={Product} variables={{ id: productID }}>
         {({ loading, error, data }) => {
           if (loading) return "Loading..";
           if (error) return `Error! ${error.message}`;
           const { product } = data;
           // console.log(product);
-
+          // destructuring the data object
           const { id, name, gallery, description, brand, prices, attributes } =
             product;
 
@@ -66,7 +72,7 @@ export class ProductCard extends PureComponent {
             <div className="product-card" key={id}>
               <div className="product-card-images">
                 <div className="flex">
-                  {gallery.length > 1 ? (
+                  {gallery.length > 1 && (
                     <div className="flex-container">
                       {gallery.slice(1).map((image, index) => (
                         <img
@@ -77,10 +83,10 @@ export class ProductCard extends PureComponent {
                         />
                       ))}
                     </div>
-                  ) : null}
-                  {gallery.length > 0 ? (
+                  )}
+                  {gallery.length > 0 && (
                     <img className="big" src={gallery[0]} alt={name} />
-                  ) : null}
+                  )}
                 </div>
               </div>
               <div>
@@ -179,6 +185,7 @@ export class ProductCard extends PureComponent {
                   <div className="description-btn">
                     <button
                       className={`btn-add`}
+                      // checking if product has attributes or not
                       onClick={() => {
                         if (
                           attributes.length === 0 ||

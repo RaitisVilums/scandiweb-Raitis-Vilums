@@ -11,6 +11,7 @@ class Products extends PureComponent {
     categoryName: null,
   };
 
+  // saving the chosen category when reloaded
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.input !== this.props.match.params.input) {
       this.setState({ categoryName: this.props.match.params.input });
@@ -24,6 +25,7 @@ class Products extends PureComponent {
     const { products } = category;
     // console.log(categoryName);
 
+    // filtering the products by the category name
     let filteredProducts = [];
     if (products && (categoryName === "all" || !categoryName)) {
       filteredProducts = products;
@@ -43,6 +45,7 @@ class Products extends PureComponent {
         </div>
         <section className="products">
           {filteredProducts.map((product) => {
+            // using the inStock item to see if the products are in stock or not
             const { id, name, prices, gallery, inStock } = product;
             // console.log(inStock);
             return (

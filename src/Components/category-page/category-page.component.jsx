@@ -6,10 +6,12 @@ import { CategoriesContext } from "../../Context/categories.context";
 class CategoryPage extends PureComponent {
   static contextType = CategoriesContext;
 
+  // creating an empty array
   state = {
-    categoryNames: new Set(),
+    categoryNames: [],
   };
 
+  // saving the state after reload
   componentDidUpdate(prevProps) {
     const { categoryNames } = this.state;
     const { category } = this.context;
@@ -18,7 +20,9 @@ class CategoryPage extends PureComponent {
     if (prevProps.category !== this.props.category) {
       products.forEach((product) => {
         const { category } = product;
-        categoryNames.add(category);
+        if (!categoryNames.includes(category)) {
+          categoryNames.push(category);
+        }
       });
     }
   }
@@ -31,25 +35,29 @@ class CategoryPage extends PureComponent {
     return (
       <main className="main-wrapper">
         <div key={name} className="heading-wrapper">
-          {name ? (
-            <NavLink key={name} replace={true} to={`/shop/${name}`}>
+          {/* there was no category ALL, so I decided to use category.name for all products */}
+          {name && (
+            <NavLink key={name} to={`/shop/${name}`}>
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </NavLink>
-          ) : null}
+          )}
+          {/* checking if the products is an array of data
+            if it's not an array just return that no products are found
+          */}
           {Array.isArray(products) ? (
             products.map((product) => {
               const { category } = product;
               const categoryName = category;
 
-              if (!categoryNames.has(categoryName)) {
-                categoryNames.add(categoryName);
+              if (!categoryNames.includes(categoryName)) {
+                categoryNames.push(categoryName);
               }
               return null;
             })
           ) : (
             <div>No products found</div>
           )}
-          {Array.from(categoryNames).map((category) => (
+          {categoryNames.map((category) => (
             <NavLink key={category} to={`/shop/${category}`}>
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </NavLink>

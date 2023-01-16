@@ -6,6 +6,8 @@ import { CurrencyContext } from "../../Context/currency.context";
 export class Currency extends PureComponent {
   static contextType = CurrencyContext;
 
+  // func that changes the currency on the web
+  // when u choose a currency it closes the currency dropdown
   clickHandler(symbol, dropDown) {
     const { currencyChangeHandler } = this.context;
     currencyChangeHandler(symbol);
@@ -23,7 +25,7 @@ export class Currency extends PureComponent {
           className={`currency-dropdown ${active ? "rotate" : ""}`}
           onClick={dropDown}
         ></div>
-        {active ? (
+        {active && (
           <div className="currencies">
             {currency.map((currencies) => {
               return (
@@ -37,8 +39,6 @@ export class Currency extends PureComponent {
               );
             })}
           </div>
-        ) : (
-          ""
         )}
       </div>
     );

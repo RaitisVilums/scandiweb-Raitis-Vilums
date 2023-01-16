@@ -11,6 +11,7 @@ export class Header extends PureComponent {
       active: false,
     };
 
+    // ensuring that dropDownHanlder has accsees to state and props
     this.dropDownHandler = this.dropDownHandler.bind(this);
   }
   dropDownHandler() {

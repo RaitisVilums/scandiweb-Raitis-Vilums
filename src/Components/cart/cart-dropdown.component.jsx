@@ -1,8 +1,8 @@
 import "./cart-dropdown.styles.scss";
 import Button from "../Utils/button/button.component";
-import Checkbox from "../checkbox/checkbox.component";
-import ProductPrice from "../price/product-total.component";
-import CartTotal from "../price/cart-total.component";
+import Checkbox from "../Utils/checkbox/checkbox.component";
+import ProductPrice from "../Utils/price/product-total.component";
+import CartTotal from "../Utils/price/cart-total.component";
 import EmptyCart from "../Utils/placeholders/cart-empty.component";
 import IncrementQuantity from "../Utils/increment/increment.component";
 import { CartContext } from "../../Context/cart.context";

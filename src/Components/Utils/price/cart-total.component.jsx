@@ -1,5 +1,5 @@
 import { PureComponent } from "react";
-import { CurrencyContext } from "../../Context/currency.context";
+import { CurrencyContext } from "../../../Context/currency.context";
 
 export class CartTotal extends PureComponent {
   static contextType = CurrencyContext;

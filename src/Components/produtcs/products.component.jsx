@@ -1,5 +1,5 @@
 import "./products.styles.scss";
-import ProductPrice from "../price/product-total.component";
+import ProductPrice from "../Utils/price/product-total.component";
 import { Fragment, PureComponent } from "react";
 import { CategoriesContext } from "../../Context/categories.context";
 import { withRouter, Link } from "react-router-dom";

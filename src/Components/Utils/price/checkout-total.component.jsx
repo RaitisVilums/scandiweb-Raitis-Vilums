@@ -1,5 +1,5 @@
 import React, { Fragment, PureComponent } from "react";
-import { CurrencyContext } from "../../Context/currency.context";
+import { CurrencyContext } from "../../../Context/currency.context";
 
 class CheckoutTotal extends PureComponent {
   static contextType = CurrencyContext;

@@ -2,12 +2,10 @@ import "./currency.styles.scss";
 
 import { PureComponent } from "react";
 import { CurrencyContext } from "../../Context/currency.context";
+import { DropdownIcon } from "../../Assets/_index";
 
 export class Currency extends PureComponent {
   static contextType = CurrencyContext;
-
-  // func that changes the currency on the web
-  // when u choose a currency it closes the currency dropdown
   clickHandler(symbol, dropDown) {
     const { currencyChangeHandler } = this.context;
     currencyChangeHandler(symbol);
@@ -19,12 +17,11 @@ export class Currency extends PureComponent {
     const { dropDown, active } = this.props;
 
     return (
-      <div className="currency">
-        <span className="currency-span">{symbol}</span>
-        <div
-          className={`currency-dropdown ${active ? "rotate" : ""}`}
-          onClick={dropDown}
-        ></div>
+      <div className="currency" onClick={dropDown}>
+        <span className="currency-span">
+          {symbol}
+          <DropdownIcon className={`currency-icon ${active && "rotate"}`} />
+        </span>
         {active && (
           <div className="currencies">
             {currency.map((currencies) => {

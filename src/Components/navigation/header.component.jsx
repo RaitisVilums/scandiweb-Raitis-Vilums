@@ -3,6 +3,7 @@ import NavBar from "./navbar.component";
 import Cart from "../cart/cart.component";
 import { PureComponent } from "react";
 import Currency from "./currency.component";
+import { Logo } from "../../Assets/_index";
 
 export class Header extends PureComponent {
   constructor() {
@@ -10,8 +11,6 @@ export class Header extends PureComponent {
     this.state = {
       active: false,
     };
-
-    // ensuring that dropDownHanlder has accsees to state and props
     this.dropDownHandler = this.dropDownHandler.bind(this);
   }
   dropDownHandler() {
@@ -23,9 +22,9 @@ export class Header extends PureComponent {
   render() {
     const { dropDownHandler, state } = this;
     return (
-      <header className="header-wrapper">
+      <header className="header">
         <NavBar />
-        <div className="header-logo" />
+        <Logo className="header-logo" />
         <div className="header-dropdown">
           <Currency dropDown={dropDownHandler} active={state.active} />
           <Cart dropDown={dropDownHandler} active={state.active} />

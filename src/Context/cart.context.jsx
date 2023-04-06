@@ -1,18 +1,18 @@
 import { createContext, PureComponent } from "react";
 
-// TODO 1) Create a Context that adds items to Cart
-// TODO 2) Check if the Item is available for the cart ( if it has attributes or no)
-
-// Function that checks if CartItem id === to item that is being added to cart
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToAdd.id
+    (cartItem) =>
+      cartItem.id === productToAdd.id &&
+      JSON.stringify(cartItem.selectedAttribute) ===
+        JSON.stringify(productToAdd.selectedAttribute)
   );
-  // if Item exists, increse the item quantity
-  // else add the new item to cart
+
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.id === productToAdd.id
+      cartItem.id === productToAdd.id &&
+      JSON.stringify(cartItem.selectedAttribute) ===
+        JSON.stringify(productToAdd.selectedAttribute)
         ? {
             ...cartItem,
             quantity: cartItem.quantity + 1,
@@ -21,7 +21,6 @@ const addCartItem = (cartItems, productToAdd) => {
     );
   }
 
-  // returning cartItems array with newely added values and the old values
   return [
     ...cartItems,
     {
@@ -52,47 +51,45 @@ export class CartProvider extends PureComponent {
     cartItems: [],
   };
 
-  // Function that opens and closes the cart
   setIsCartOpen = () => {
     this.setState((prevState) => ({
       isCartOpen: !prevState.isCartOpen,
     }));
   };
 
-  // Function that adds item to cart
   addItemToCart = (productToAdd) => {
-    // console.log(productToAdd);
     this.setState((state) => ({
       cartItems: addCartItem(state.cartItems, productToAdd),
     }));
-    // console.log(`it works`);
   };
 
-  // increses the quantity of item in cart
-  incrementQuantity = (productId) => {
+  incrementQuantity = (productId, selectedAttribute) => {
     this.setState((state) => {
-      // selecting produtID and checking if it's === to cart item.id
       const updatedCartItems = state.cartItems.map((item) => {
-        if (item.id === productId) {
-          // incresing the quantity of item in cart
+        if (
+          item.id === productId &&
+          JSON.stringify(item.selectedAttribute) ===
+            JSON.stringify(selectedAttribute)
+        ) {
           return { ...item, quantity: item.quantity + 1 };
         }
         return item;
       });
-      // returning updated cartItems array
       return {
         cartItems: updatedCartItems,
       };
     });
   };
 
-  // Function that decreases item quantity in cart
-  // also deletes the item from cart if itš quantity goes below 1
-  decrementQuantity = (productId) => {
+  decrementQuantity = (productId, selectedAttribute) => {
     this.setState((state) => {
       const updatedCartItems = state.cartItems
         .map((item) => {
-          if (item.id === productId) {
+          if (
+            item.id === productId &&
+            JSON.stringify(item.selectedAttribute) ===
+              JSON.stringify(selectedAttribute)
+          ) {
             return { ...item, quantity: Math.max(item.quantity - 1, 0) };
           }
           return item;
@@ -104,21 +101,19 @@ export class CartProvider extends PureComponent {
     });
   };
 
-  // Saving the Cart state into local sotrage
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevState) {
     if (prevState.cartItems !== this.state.cartItems) {
       localStorage.setItem("cartItems", JSON.stringify(this.state.cartItems));
     }
   }
-  // When web reloads setting the Cart state from local storage
+
   componentDidMount() {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     this.setState({ cartItems: cartItems });
-    console.log(cartItems);
   }
 
   render() {
-    const value = {
+    const contextValue = {
       isCartOpen: this.state.isCartOpen,
       setIsCartOpen: this.setIsCartOpen,
       addItemToCart: this.addItemToCart,
@@ -127,7 +122,7 @@ export class CartProvider extends PureComponent {
       decrementQuantity: this.decrementQuantity,
     };
     return (
-      <CartContext.Provider value={value}>
+      <CartContext.Provider value={contextValue}>
         {this.props.children}
       </CartContext.Provider>
     );

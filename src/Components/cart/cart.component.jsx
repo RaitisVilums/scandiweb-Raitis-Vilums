@@ -1,15 +1,13 @@
 import "./cart.styles.scss";
-import CART from "../../Assets/cart.svg";
-import CartDropdown from "./cart-dropdown.component";
 import { PureComponent } from "react";
 import { CartContext } from "../../Context/cart.context";
+
+import { CartIcon } from "../../Assets/_index";
+import CartDropdown from "./cart-dropdown.component";
 
 export class Cart extends PureComponent {
   static contextType = CartContext;
 
-  // Function that opens the cart
-  // also getting props of Currency state, calling func dropDown, to close the
-  // currencies dropdown menu if it's open
   dropDownHandler = () => {
     const { dropDown, active } = this.props;
     this.context.setIsCartOpen();
@@ -23,13 +21,15 @@ export class Cart extends PureComponent {
       0
     );
     return (
-      <div className="cart-wrapper">
-        <div className="cart-wrapper-quantity">
-          <p>{totalQuantity}</p>
+      <>
+        <div className="cart-wrapper">
+          <div className="cart-wrapper-quantity">
+            <p>{totalQuantity}</p>
+          </div>
+          <CartIcon onClick={this.dropDownHandler} />
+          {this.context.isCartOpen ? <CartDropdown /> : ""}
         </div>
-        <img src={CART} alt="cart" onClick={this.dropDownHandler} />
-        {this.context.isCartOpen ? <CartDropdown /> : ""}
-      </div>
+      </>
     );
   }
 }

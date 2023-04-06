@@ -4,27 +4,24 @@ import Checkbox from "../Utils/checkbox/checkbox.component";
 import ProductPrice from "../Utils/price/product-total.component";
 import CartTotal from "../Utils/price/cart-total.component";
 import EmptyCart from "../Utils/placeholders/cart-empty.component";
-import IncrementQuantity from "../Utils/increment/increment.component";
+import ChangeQuantity from "../Utils/quantityChange/quantity.component";
 import { CartContext } from "../../Context/cart.context";
 import { PureComponent, Fragment } from "react";
 import { Link } from "react-router-dom";
 
 export class CartDropdown extends PureComponent {
   static contextType = CartContext;
-  // function that closes the cart
+
   closeCartHandler = () => {
-    // console.log(`it works`);
     const { setIsCartOpen } = this.context;
     setIsCartOpen(false);
   };
   render() {
     const cartItems = Object.values(this.context.cartItems);
-    // Renders an empty cart, if there are no items
     if (cartItems.length === 0) return <EmptyCart />;
 
     return (
       <Fragment>
-        {/* backdrop has a onClick that closes the Cart */}
         <div className="backdrop" onClick={this.closeCartHandler} />
         <div className="dropdown">
           <div className="dropdown-heading">
@@ -46,7 +43,6 @@ export class CartDropdown extends PureComponent {
                 attributes,
                 selectedAttribute,
               } = product;
-              // console.log(selectedAttribute);
               return (
                 <div key={id} className="dropdown-product">
                   <div className="dropdown-product-description">
@@ -61,7 +57,6 @@ export class CartDropdown extends PureComponent {
                         <p className="checkbox-label">{attribute.id}:</p>
                         <div className="justawrapper">
                           {attribute.items.map((item) => {
-                            // console.log(selectedAttribute[attribute.id]);
                             console.log(attribute.type);
                             return (
                               <Checkbox
@@ -83,8 +78,9 @@ export class CartDropdown extends PureComponent {
                     ))}
                   </div>
 
-                  <IncrementQuantity
+                  <ChangeQuantity
                     id={id}
+                    selectedAttribute={selectedAttribute}
                     quantity={quantity}
                     classBTN={`btn-increment`}
                     classDIV={`dropdown-product-increment`}

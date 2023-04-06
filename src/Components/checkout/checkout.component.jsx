@@ -6,31 +6,13 @@ import ProductPrice from "../Utils/price/product-total.component";
 import CheckoutTotal from "../Utils/price/checkout-total.component";
 import CheckoutEmpty from "../Utils/placeholders/checkout-empty.component";
 import { CartContext } from "../../Context/cart.context";
-import IncrementQuantity from "../Utils/increment/increment.component";
+import ChangeQuantity from "../Utils/quantityChange/quantity.component";
+import ProductImageSlider from "../Utils/imageSlider/image-slider.component";
 
 export class Checkout extends PureComponent {
   static contextType = CartContext;
   state = {
     currentIndex: 0,
-  };
-
-  handleIncrement = (id, increment, gallery) => {
-    // TODO Figure out the logic
-    const cartItems = this.context.cartItems;
-    let cartItemId = cartItems.map((product) => product.id);
-    let filteredId = cartItemId.filter((itemId) => itemId === id);
-
-    if (filteredId.length > 0) {
-      this.setState((prevState) => {
-        let newIndex = prevState.currentIndex + increment;
-        if (newIndex < 0) {
-          newIndex = 0;
-        } else if (newIndex >= gallery.length) {
-          newIndex = gallery.length - 1;
-        }
-        return { currentIndex: newIndex };
-      });
-    }
   };
 
   render() {
@@ -89,26 +71,15 @@ export class Checkout extends PureComponent {
                     </Fragment>
                   ))}
                 </div>
-                <IncrementQuantity
+                <ChangeQuantity
                   id={id}
+                  selectedAttribute={selectedAttribute}
                   quantity={quantity}
                   classBTN={`change`}
                   classDIV={`checkout-product-increment`}
                   classLabel={`checkout-product-label`}
                 />
-                <div className="checkout-product-image">
-                  <img src={gallery[this.state.currentIndex]} alt={name} />
-                  <div>
-                    <button
-                      className="btn-next left"
-                      onClick={() => this.handleIncrement(id, 1, gallery)}
-                    ></button>
-                    <button
-                      className="btn-next right"
-                      onClick={() => this.handleIncrement(id, -1, gallery)}
-                    ></button>
-                  </div>
-                </div>
+                <ProductImageSlider id={id} gallery={gallery} name={name} />
               </div>
               <hr />
             </Fragment>
@@ -116,7 +87,7 @@ export class Checkout extends PureComponent {
         })}
         <div className="checkout-wrapper">
           <CheckoutTotal cartItems={cartItems} />
-          <Button className={` order`}>ORDER</Button>
+          <Button className={`order`}>ORDER</Button>
         </div>
       </section>
     );

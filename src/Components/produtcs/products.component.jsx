@@ -1,60 +1,63 @@
 import "./products.styles.scss";
+
+import React, { PureComponent } from "react";
 import ProductPrice from "../Utils/price/product-total.component";
-import { Fragment, PureComponent } from "react";
-import { CategoriesContext } from "../../Context/categories.context";
+
+import { ProductsContext } from "../../Context/products.context";
 import { withRouter, Link } from "react-router-dom";
 
+import CategoryPage from "../category-page/category-page.component";
+
 class Products extends PureComponent {
-  static contextType = CategoriesContext;
+  static contextType = ProductsContext;
 
-  state = {
-    categoryName: null,
-  };
-
-  // saving the chosen category when reloaded
+  componentDidMount() {
+    const { fetchProducts } = this.context;
+    const { match } = this.props;
+    const category = match.params.category;
+    fetchProducts(category);
+  }
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.input !== this.props.match.params.input) {
-      this.setState({ categoryName: this.props.match.params.input });
+    const { fetchProducts } = this.context;
+    const { category } = this.props.match.params;
+    if (category !== prevProps.match.params.category) {
+      fetchProducts(category);
     }
   }
 
   render() {
-    const { match } = this.props;
-    const categoryName = match.params.input;
-    const { category } = this.context;
-    const { products } = category;
-    // console.log(categoryName);
+    const { isLoading, productsByCategory } = this.context;
 
-    // filtering the products by the category name
-    let filteredProducts = [];
-    if (products && (categoryName === "all" || !categoryName)) {
-      filteredProducts = products;
-    } else if (products) {
-      filteredProducts = products.filter(
-        (product) =>
-          product.category.toLowerCase() === categoryName.toLowerCase()
+    if (isLoading || !productsByCategory.products) {
+      return (
+        <>
+          <CategoryPage />
+          <div>Loading...</div>
+        </>
       );
     }
 
-    // console.log(filteredProducts);
+    const { products } = productsByCategory;
 
     return (
-      <Fragment>
-        <div className="products-heading">
-          {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
-        </div>
+      <>
+        <CategoryPage />
         <section className="products">
-          {filteredProducts.map((product) => {
-            // using the inStock item to see if the products are in stock or not
-            const { id, name, prices, gallery, inStock } = product;
-            // console.log(inStock);
+          {products.map((product) => {
+            const { id, gallery, name, prices, inStock } = product;
             return (
-              <div className={inStock ? `product` : `out-of-stock`} key={id}>
+              <div
+                className={inStock ? `product` : `product out-of-stock`}
+                key={id}
+              >
                 <div className="product-image">
+                  <Link className="product-link" to={`/product/${id}`} />
                   <img src={gallery[0]} alt={name} />
                 </div>
                 <div className="product-description">
-                  <h2 className="product-name">{name}</h2>
+                  <Link to={`/product/${id}`}>
+                    <h2 className="product-name">{name}</h2>
+                  </Link>
                   <ProductPrice prices={prices} />
                 </div>
                 <Link to={`/product/${id}`}>
@@ -64,7 +67,7 @@ class Products extends PureComponent {
             );
           })}
         </section>
-      </Fragment>
+      </>
     );
   }
 }

@@ -1,27 +1,23 @@
 import { gql } from "@apollo/client";
 
 // Querry calls for Apollo server and GraphQl
-export const CATEGORY = gql`
+export const CATEGORIES = gql`
   query {
     categories {
+      name
+    }
+  }
+`;
+
+export const CategoryProducts = gql`
+  query ($input: CategoryInput!) {
+    category(input: $input) {
       name
       products {
         id
         name
         gallery
         inStock
-        description
-        category
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
-        }
         prices {
           amount
           currency {
@@ -29,7 +25,6 @@ export const CATEGORY = gql`
             symbol
           }
         }
-        brand
       }
     }
   }

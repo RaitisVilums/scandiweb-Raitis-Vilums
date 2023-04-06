@@ -10,8 +10,7 @@ export class ProductPrice extends PureComponent {
       (price) => price.currency.label === selectedCurrency.label
     );
     const { amount } = price;
-    // console.log(selectedCurrency);
-    // console.log(prices);
+
     const { symbol } = selectedCurrency;
     return (
       <p className={className ? className : "product-price"}>

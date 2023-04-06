@@ -1,35 +1,28 @@
 import React, { Fragment, PureComponent } from "react";
 import Header from "../Components/navigation/header.component";
-import { CATEGORY } from "../Data/queries";
-
-// TODO 1) Create a Context that gets, saves Category names
-// TODO 2) Implement a way to load data instantly when website loads
+import { CATEGORIES } from "../Data/queries";
 
 export const CategoriesContext = React.createContext({
-  category: {},
+  categories: [],
   loading: false,
 });
 
 export class CategoriesProvider extends PureComponent {
   state = {
-    category: {},
+    categories: [],
     loading: false,
   };
 
-  // Calling fetchCategory when Web loads
-
   componentDidMount() {
-    this.fetchCategory();
+    this.fetchCategories();
   }
 
-  // Function that use Appolo Server and GraphQl querry to fetch data
-  // Setting category to fetched data
-  fetchCategory = () => {
+  fetchCategories = () => {
     this.setState({ loading: true });
     this.props.client
-      .query({ query: CATEGORY })
+      .query({ query: CATEGORIES })
       .then(({ data }) => {
-        this.setState({ category: data.categories[0], loading: false });
+        this.setState({ categories: data.categories, loading: false });
       })
       .catch((error) => {
         this.setState({ loading: false });
@@ -37,7 +30,7 @@ export class CategoriesProvider extends PureComponent {
   };
 
   render() {
-    const { category, loading, error } = this.state;
+    const { categories, loading, error } = this.state;
     if (error) {
       return (
         <Fragment>
@@ -55,9 +48,9 @@ export class CategoriesProvider extends PureComponent {
       );
     }
 
-    const value = { category };
+    const contextValue = { categories };
     return (
-      <CategoriesContext.Provider value={value}>
+      <CategoriesContext.Provider value={contextValue}>
         {this.props.children}
       </CategoriesContext.Provider>
     );

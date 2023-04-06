@@ -1,6 +1,5 @@
 .currency {
   position: relative;
-  z-index: 5000;
   display: flex;
   gap: 0.5rem;
   position: relative;
@@ -8,13 +7,15 @@
     font-size: 1.8rem;
     font-weight: 500;
     color: #1d1f22;
-  }
-  &-dropdown {
-    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     cursor: pointer;
-    background: url("../../Assets/dropdown.svg");
-    background-repeat: no-repeat;
-    background-position: center;
+  }
+
+  &-icon {
+    transition: transform 0.2s ease-in;
   }
 }
 .currencies {

@@ -1,6 +1,5 @@
 import "./product-card.styles.scss";
 import ProductPrice from "../Utils/price/product-total.component";
-import { withRouter } from "react-router-dom";
 import { Product } from "../../Data/queries";
 import { Fragment, PureComponent } from "react";
 import { Query } from "@apollo/client/react/components";
@@ -220,4 +219,4 @@ export class ProductCard extends PureComponent {
   }
 }
 
-export default withRouter(ProductCard);
+export default ProductCard;

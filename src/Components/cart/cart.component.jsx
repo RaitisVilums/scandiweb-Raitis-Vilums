@@ -27,7 +27,7 @@ export class Cart extends PureComponent {
             <p>{totalQuantity}</p>
           </div>
           <CartIcon onClick={this.dropDownHandler} />
-          {this.context.isCartOpen ? <CartDropdown /> : ""}
+          {this.context.isCartOpen && <CartDropdown />}
         </div>
       </>
     );

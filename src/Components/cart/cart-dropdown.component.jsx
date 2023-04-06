@@ -22,7 +22,6 @@ export class CartDropdown extends PureComponent {
 
     return (
       <Fragment>
-        <div className="backdrop" onClick={this.closeCartHandler} />
         <div className="dropdown">
           <div className="dropdown-heading">
             <h1>My Bag, </h1>

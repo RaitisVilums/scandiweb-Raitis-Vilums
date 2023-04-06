@@ -4,9 +4,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 8rem;
-  position: relative;
-  z-index: 10;
+  padding: 0 2rem;
+  background: #fff;
+  z-index: 2;
 
   &-logo {
     position: absolute;

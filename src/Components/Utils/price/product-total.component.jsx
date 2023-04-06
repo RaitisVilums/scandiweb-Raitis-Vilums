@@ -14,7 +14,8 @@ export class ProductPrice extends PureComponent {
     const { symbol } = selectedCurrency;
     return (
       <p className={className ? className : "product-price"}>
-        {symbol} {amount}
+        {symbol}
+        {amount}
       </p>
     );
   }

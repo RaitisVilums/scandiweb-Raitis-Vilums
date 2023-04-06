@@ -21,7 +21,7 @@ class ProductImageSlider extends PureComponent {
   };
 
   render() {
-    const { id, gallery, name } = this.props;
+    const { gallery, name } = this.props;
 
     return (
       <div className="checkout-product-image">

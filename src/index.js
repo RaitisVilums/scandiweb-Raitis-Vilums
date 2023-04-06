@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CategoriesProvider } from "./Context/categories.context";
 import CartProvider from "./Context/cart.context";
 import CurrencyProvider from "./Context/currency.context";
+import ProductProvider from "./Context/product.context";
 
 import ProductsProvider from "./Context/products.context";
 
@@ -22,11 +23,13 @@ root.render(
     <BrowserRouter>
       <CategoriesProvider client={client}>
         <ProductsProvider client={client}>
-          <CurrencyProvider client={client}>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </CurrencyProvider>
+          <ProductProvider client={client}>
+            <CurrencyProvider client={client}>
+              <CartProvider>
+                <App />
+              </CartProvider>
+            </CurrencyProvider>
+          </ProductProvider>
         </ProductsProvider>
       </CategoriesProvider>
     </BrowserRouter>

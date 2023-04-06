@@ -15,6 +15,8 @@ export class App extends PureComponent {
         <Switch>
           <Route exact path={`/`} component={Home} />
           <Route path={`/shop/:category`} component={Shop} />
+          <Route path={`/product/:id`} component={ShopItem} />
+          <Route path={`/cart`} component={CartComponent} />
         </Switch>
       </Fragment>
     );

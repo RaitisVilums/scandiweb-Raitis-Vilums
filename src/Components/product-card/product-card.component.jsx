@@ -1,13 +1,16 @@
 import "./product-card.styles.scss";
 import ProductPrice from "../Utils/price/product-total.component";
-import { Product } from "../../Data/queries";
+
 import { Fragment, PureComponent } from "react";
-import { Query } from "@apollo/client/react/components";
+
 import { CartContext } from "../../Context/cart.context";
+import { ProductContext } from "../../Context/product.context";
 import htmlReactParser from "html-react-parser";
 
+import { withRouter } from "react-router-dom";
+
 export class ProductCard extends PureComponent {
-  static contextType = CartContext;
+  static contextType = ProductContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -40,33 +43,30 @@ export class ProductCard extends PureComponent {
     }
   };
 
-  // checking if the product id changes,reseting the attributes
+  componentDidMount() {
+    const { fetchProduct } = this.context;
+    const productID = this.props.match.params.id;
+    fetchProduct(productID);
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.match.params.productid !== this.props.match.params.productid
-    ) {
-      this.resetSelectedAttribute(this.props.match.params.productid);
+    const { fetchProduct } = this.context;
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      const productID = this.props.match.params.id;
+      fetchProduct(productID);
     }
   }
 
   render() {
-    const { match } = this.props;
-    const productID = match.params.productid;
-    const { addItemToCart } = this.context;
+    const { product, isLoading } = this.context;
 
     return (
-      // using Query to fetch data from Apollo server and GraphQl
-      // using match.params to get chosen products ID
-      <Query query={Product} variables={{ id: productID }}>
-        {({ loading, error, data }) => {
-          if (loading) return "Loading..";
-          if (error) return `Error! ${error.message}`;
-          const { product } = data;
-          // console.log(product);
-          // destructuring the data object
+      <CartContext.Consumer>
+        {({ addItemToCart }) => {
+          if (isLoading) return "Loading...";
+          if (!product) return "Error! No product data.";
           const { id, name, gallery, description, brand, prices, attributes } =
             product;
-
           return (
             <div className="product-card" key={id}>
               <div className="product-card-images">
@@ -214,9 +214,9 @@ export class ProductCard extends PureComponent {
             </div>
           );
         }}
-      </Query>
+      </CartContext.Consumer>
     );
   }
 }
 
-export default ProductCard;
+export default withRouter(ProductCard);

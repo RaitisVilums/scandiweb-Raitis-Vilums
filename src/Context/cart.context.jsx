@@ -36,6 +36,14 @@ const addCartItem = (cartItems, productToAdd) => {
   ];
 };
 
+const getDefaultAttributes = (attributes) => {
+  const selectedAttribute = {};
+  attributes.forEach((attribute) => {
+    selectedAttribute[attribute.name] = attribute.items[0].value;
+  });
+  return selectedAttribute;
+};
+
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
@@ -60,6 +68,18 @@ export class CartProvider extends PureComponent {
   addItemToCart = (productToAdd) => {
     this.setState((state) => ({
       cartItems: addCartItem(state.cartItems, productToAdd),
+    }));
+  };
+
+  addItemWithDefaultAttributes = (productToAdd) => {
+    const defaultSelectedAttribute = getDefaultAttributes(
+      productToAdd.attributes
+    );
+    this.setState((state) => ({
+      cartItems: addCartItem(state.cartItems, {
+        ...productToAdd,
+        selectedAttribute: defaultSelectedAttribute,
+      }),
     }));
   };
 
@@ -118,6 +138,7 @@ export class CartProvider extends PureComponent {
       setIsCartOpen: this.setIsCartOpen,
       addItemToCart: this.addItemToCart,
       cartItems: this.state.cartItems,
+      addItemWithDefaultAttributes: this.addItemWithDefaultAttributes,
       incrementQuantity: this.incrementQuantity,
       decrementQuantity: this.decrementQuantity,
     };

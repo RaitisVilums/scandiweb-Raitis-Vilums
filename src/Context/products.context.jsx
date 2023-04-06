@@ -14,8 +14,6 @@ export class ProductsProvider extends PureComponent {
   fetchProducts = (categoryName) => {
     this.setState({ isLoading: true });
     const variables = { input: { title: categoryName } };
-    // console.log("vars - ", variables);
-
     this.props.client
       .query({
         query: CategoryProducts,

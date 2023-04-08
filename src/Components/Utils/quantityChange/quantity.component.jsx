@@ -3,7 +3,7 @@ import { CartContext } from "../../../Context/cart.context";
 
 import { PlusIcon, MinusIcon } from "../../../Assets/_index";
 
-class ChangeQuantity extends PureComponent {
+export class ChangeQuantity extends PureComponent {
   static contextType = CartContext;
   render() {
     const { incrementQuantity, decrementQuantity } = this.context;

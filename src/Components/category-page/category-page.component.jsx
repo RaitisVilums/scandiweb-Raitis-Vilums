@@ -20,15 +20,11 @@ class CategoryPage extends PureComponent {
     return (
       <main className="main">
         <div className="main-heading">
-          {categories.length > 0 ? (
-            categories.map((category) => (
-              <Link key={category.name} to={`/shop/${category.name}`}>
-                {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
-              </Link>
-            ))
-          ) : (
-            <div>No categories found</div>
-          )}
+          {categories.map((category) => (
+            <Link key={category.name} to={`/shop/${category.name}`}>
+              {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+            </Link>
+          ))}
         </div>
       </main>
     );

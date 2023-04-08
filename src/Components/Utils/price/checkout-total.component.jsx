@@ -37,7 +37,7 @@ class CheckoutTotal extends PureComponent {
       const price = item.prices.find(
         (price) => price.currency.symbol === selectedCurrency.symbol
       );
-      //   console.log(price.amount, price.currency.symbol);
+
       if (price) {
         return total + price.amount * item.quantity;
       } else {
@@ -45,7 +45,6 @@ class CheckoutTotal extends PureComponent {
         return total;
       }
     }, 0);
-    // console.log(total);
 
     // calculating the total costs + tax
     const tax = total * 0.21;
@@ -71,7 +70,7 @@ class CheckoutTotal extends PureComponent {
         <h1>
           Tax 21%:
           <span>
-            {`${symbol}  `}
+            {`${symbol}`}
             {tax.toFixed(2)}
           </span>
         </h1>
@@ -81,7 +80,7 @@ class CheckoutTotal extends PureComponent {
         <h1>
           Total:
           <span>
-            {`${symbol}  `}
+            {`${symbol}`}
             {totalCost.toFixed(2)}
           </span>
         </h1>

@@ -1,0 +1,21 @@
+.image-gallery {
+  overflow: hidden;
+  display: flex;
+  gap: 4rem;
+
+  &-small {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.small {
+  width: 8rem;
+  height: 8rem;
+  cursor: pointer;
+}
+.big {
+  width: 61rem;
+  height: 51rem;
+}

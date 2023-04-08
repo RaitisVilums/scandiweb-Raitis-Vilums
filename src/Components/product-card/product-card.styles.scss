@@ -40,44 +40,12 @@
     align-items: center;
     justify-content: center;
     margin-right: 1rem;
-    // height: 4rem;
     border: 1px solid black;
-    // z-index: -1;
     & p {
       position: absolute;
       font-size: 2rem;
       z-index: -2;
-      // margin-right: 1rem;
     }
-  }
-
-  &-color {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
-    margin-right: 0.8rem;
-
-    & div {
-      position: absolute;
-      z-index: -1;
-      width: 3.6rem;
-      height: 3.6rem;
-    }
-  }
-
-  &-checkbox {
-    width: 6rem;
-    height: 4.5rem;
-    border: 1px solid #1d1f22;
-    color: #1d1f22;
-    cursor: pointer;
-    appearance: none;
-    border-color: transparent;
-    background-color: transparent;
-    margin-right: 1rem;
   }
 }
 
@@ -131,13 +99,4 @@ label {
   font-size: 3rem;
   color: #1d1f22;
   font-weight: 400;
-}
-
-.small {
-  width: 8rem;
-  height: 8rem;
-}
-.big {
-  width: 61rem;
-  height: 51rem;
 }

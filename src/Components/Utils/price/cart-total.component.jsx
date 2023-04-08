@@ -55,7 +55,7 @@ export class CartTotal extends PureComponent {
     const { totalCost } = this.state;
     return (
       <h2 className="amount">
-        {`${symbol}  `}
+        {`${symbol}`}
         {totalCost.toFixed(2)}
       </h2>
     );

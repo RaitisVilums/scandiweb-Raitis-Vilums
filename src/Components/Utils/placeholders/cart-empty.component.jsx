@@ -14,7 +14,6 @@ class EmptyCart extends PureComponent {
   render() {
     return (
       <Fragment>
-        <div className="backdrop" onClick={this.closeCartHandler} />
         <div className="dropdown">
           <div className="dropdown-heading">
             <h1>My Bag, No Items </h1>

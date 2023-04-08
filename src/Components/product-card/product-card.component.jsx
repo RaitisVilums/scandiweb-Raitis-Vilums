@@ -1,11 +1,14 @@
 import "./product-card.styles.scss";
 import ProductPrice from "../Utils/price/product-total.component";
 
-import { Fragment, PureComponent } from "react";
+import { PureComponent } from "react";
 
 import { CartContext } from "../../Context/cart.context";
 import { ProductContext } from "../../Context/product.context";
 import htmlReactParser from "html-react-parser";
+
+import AttributeSet from "../Utils/attributeSet/attribute-set.component";
+import ImageGallery from "../Utils/imageGalery/image-gallery.component";
 
 import { withRouter } from "react-router-dom";
 
@@ -19,7 +22,7 @@ export class ProductCard extends PureComponent {
   }
 
   // handling the selected attributes
-  handleChange(event) {
+  handleChange = (event) => {
     const { name, value, checked } = event.target;
     let selectedAttribute = { ...this.state.selectedAttribute };
     if (checked) {
@@ -30,15 +33,25 @@ export class ProductCard extends PureComponent {
     this.setState({
       selectedAttribute,
     });
-    // console.log(selectedAttribute);
-  }
+  };
+  handleAddToCart = (addItemToCart, attributes) => {
+    const { selectedAttribute } = this.state;
+    const { id, name, gallery, brand, prices, inStock } = this.context.product;
 
-  // reseting selected attributes
-  resetSelectedAttribute = (productID) => {
-    if (productID !== this.state.currentProductID) {
-      this.setState({
-        selectedAttribute: {},
-        currentProductID: productID,
+    const noAttributes = attributes.length === 0;
+    const allAttributesSelected =
+      Object.keys(selectedAttribute).length === attributes.length;
+    const canAddToCart = (noAttributes || allAttributesSelected) && inStock;
+
+    if (canAddToCart) {
+      addItemToCart({
+        id,
+        name,
+        gallery,
+        brand,
+        prices,
+        attributes,
+        selectedAttribute,
       });
     }
   };
@@ -49,17 +62,8 @@ export class ProductCard extends PureComponent {
     fetchProduct(productID);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { fetchProduct } = this.context;
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      const productID = this.props.match.params.id;
-      fetchProduct(productID);
-    }
-  }
-
   render() {
     const { product, isLoading } = this.context;
-
     return (
       <CartContext.Consumer>
         {({ addItemToCart }) => {
@@ -67,27 +71,10 @@ export class ProductCard extends PureComponent {
           if (!product) return "Error! No product data.";
           const { id, name, gallery, description, brand, prices, attributes } =
             product;
+          console.log(attributes);
           return (
             <div className="product-card" key={id}>
-              <div className="product-card-images">
-                <div className="flex">
-                  {gallery.length > 1 && (
-                    <div className="flex-container">
-                      {gallery.slice(1).map((image, index) => (
-                        <img
-                          className="small"
-                          src={image}
-                          alt={name}
-                          key={`image-${index}`}
-                        />
-                      ))}
-                    </div>
-                  )}
-                  {gallery.length > 0 && (
-                    <img className="big" src={gallery[0]} alt={name} />
-                  )}
-                </div>
-              </div>
+              <ImageGallery gallery={gallery} name={name} />
               <div>
                 <div className="description">
                   <div className="description-title">
@@ -97,83 +84,17 @@ export class ProductCard extends PureComponent {
                   {attributes.map((attribute) => (
                     <div className="description-checkbox" key={attribute.id}>
                       <div className="margin-btm">
-                        <label>{attribute.id}</label>
+                        <label>{attribute.id}:</label>
                       </div>
                       <div className="input-wrapper">
                         {attribute.items.map((item) => (
-                          <Fragment>
-                            {attribute.type === "text" && (
-                              <div
-                                className="input-attribute"
-                                style={{
-                                  backgroundColor:
-                                    this.state.selectedAttribute[
-                                      attribute.id
-                                    ] === item.value
-                                      ? "black"
-                                      : "inherit",
-                                }}
-                              >
-                                <p
-                                  style={{
-                                    color:
-                                      this.state.selectedAttribute[
-                                        attribute.id
-                                      ] === item.value
-                                        ? "white"
-                                        : "inherit",
-                                    zIndex:
-                                      this.state.selectedAttribute[
-                                        attribute.id
-                                      ] === item.value
-                                        ? "1"
-                                        : "-1",
-                                  }}
-                                >
-                                  {item.value}
-                                </p>
-                                <input
-                                  className="input-checkbox"
-                                  type="checkbox"
-                                  name={attribute.id}
-                                  value={item.value}
-                                  checked={
-                                    this.state.selectedAttribute[
-                                      attribute.id
-                                    ] === item.value
-                                  }
-                                  onChange={this.handleChange.bind(this)}
-                                />
-                              </div>
-                            )}
-                            {attribute.type === "swatch" && (
-                              <div
-                                className="input-color"
-                                style={{
-                                  border:
-                                    this.state.selectedAttribute[
-                                      attribute.id
-                                    ] === item.value
-                                      ? "1px solid green"
-                                      : "none",
-                                }}
-                              >
-                                <div style={{ backgroundColor: item.value }} />
-                                <input
-                                  className="input-checkbox"
-                                  type="checkbox"
-                                  name={attribute.id}
-                                  value={item.value}
-                                  checked={
-                                    this.state.selectedAttribute[
-                                      attribute.id
-                                    ] === item.value
-                                  }
-                                  onChange={this.handleChange.bind(this)}
-                                />
-                              </div>
-                            )}
-                          </Fragment>
+                          <AttributeSet
+                            key={`${attribute.id}-${item.value}`}
+                            attribute={attribute}
+                            item={item}
+                            selectedAttribute={this.state.selectedAttribute}
+                            handleChange={this.handleChange.bind(this)}
+                          />
                         ))}
                       </div>
                     </div>
@@ -184,24 +105,9 @@ export class ProductCard extends PureComponent {
                   <div className="description-btn">
                     <button
                       className={`btn-add`}
-                      // checking if product has attributes or not
-                      onClick={() => {
-                        if (
-                          attributes.length === 0 ||
-                          Object.keys(this.state.selectedAttribute).length ===
-                            attributes.length
-                        ) {
-                          addItemToCart({
-                            id,
-                            name,
-                            gallery,
-                            brand,
-                            prices,
-                            attributes,
-                            selectedAttribute: this.state.selectedAttribute,
-                          });
-                        }
-                      }}
+                      onClick={() =>
+                        this.handleAddToCart(addItemToCart, attributes)
+                      }
                     >
                       add to cart
                     </button>

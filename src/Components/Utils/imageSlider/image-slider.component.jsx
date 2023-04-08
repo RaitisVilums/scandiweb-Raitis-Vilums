@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-class ProductImageSlider extends PureComponent {
+export class ProductImageSlider extends PureComponent {
   state = {
     currentIndex: 0,
   };

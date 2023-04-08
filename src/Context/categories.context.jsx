@@ -4,13 +4,13 @@ import { CATEGORIES } from "../Data/queries";
 
 export const CategoriesContext = React.createContext({
   categories: [],
-  loading: false,
+  isLoading: false,
 });
 
 export class CategoriesProvider extends PureComponent {
   state = {
     categories: [],
-    loading: false,
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -18,19 +18,19 @@ export class CategoriesProvider extends PureComponent {
   }
 
   fetchCategories = () => {
-    this.setState({ loading: true });
+    this.setState({ isLoading: true });
     this.props.client
       .query({ query: CATEGORIES })
       .then(({ data }) => {
-        this.setState({ categories: data.categories, loading: false });
+        this.setState({ categories: data.categories, isLoading: false });
       })
       .catch((error) => {
-        this.setState({ loading: false });
+        this.setState({ isLoading: false });
       });
   };
 
   render() {
-    const { categories, loading, error } = this.state;
+    const { categories, isLoading, error } = this.state;
     if (error) {
       return (
         <Fragment>
@@ -39,7 +39,7 @@ export class CategoriesProvider extends PureComponent {
         </Fragment>
       );
     }
-    if (loading) {
+    if (isLoading) {
       return (
         <Fragment>
           <Header />

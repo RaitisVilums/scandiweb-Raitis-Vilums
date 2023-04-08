@@ -4,8 +4,10 @@ import Cart from "../cart/cart.component";
 import { PureComponent } from "react";
 import Currency from "./currency.component";
 import { Logo } from "../../Assets/_index";
+import { CartContext } from "../../Context/cart.context";
 
 export class Header extends PureComponent {
+  static contextType = CartContext;
   constructor() {
     super();
     this.state = {
@@ -20,16 +22,22 @@ export class Header extends PureComponent {
   }
 
   render() {
+    const { isCartOpen, setIsCartOpen } = this.context;
     const { dropDownHandler, state } = this;
     return (
-      <header className="header">
-        <NavBar />
-        <Logo className="header-logo" />
-        <div className="header-dropdown">
-          <Currency dropDown={dropDownHandler} active={state.active} />
-          <Cart dropDown={dropDownHandler} active={state.active} />
-        </div>
-      </header>
+      <>
+        {isCartOpen && (
+          <div className="backdrop" onClick={() => setIsCartOpen()} />
+        )}
+        <header className="header">
+          <NavBar />
+          <Logo className="header-logo" />
+          <div className="header-dropdown">
+            <Currency dropDown={dropDownHandler} active={state.active} />
+            <Cart dropDown={dropDownHandler} active={state.active} />
+          </div>
+        </header>
+      </>
     );
   }
 }

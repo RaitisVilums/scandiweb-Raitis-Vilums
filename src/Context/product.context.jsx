@@ -13,9 +13,9 @@ export class ProductProvider extends PureComponent {
     isLoading: false,
   };
 
-  fetchProduct = (productId) => {
+  fetchProduct = (productID) => {
     this.setState({ isLoading: true });
-    const variables = { id: productId };
+    const variables = { id: productID };
     this.props.client
       .query({
         query: Product,

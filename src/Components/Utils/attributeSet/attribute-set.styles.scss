@@ -1,0 +1,46 @@
+.input {
+  display: flex;
+  &-checkbox {
+    display: none;
+  }
+
+  &-attribute {
+    width: 6rem;
+    height: 4.5rem;
+    border: 1px solid #1d1f22;
+    color: #1d1f22;
+    cursor: pointer;
+    appearance: none;
+    border-color: transparent;
+    background-color: transparent;
+    margin-right: 1rem;
+    border: 1px solid #1d1f22;
+  }
+
+  &-color {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    margin-right: 0.8rem;
+    cursor: pointer;
+
+    & div {
+      position: absolute;
+      z-index: -1;
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+  }
+}
+
+.input-checkbox:checked + .input-attribute {
+  background-color: #1d1f22;
+  color: white;
+}
+
+.input-checkbox:checked + .input-color {
+  border: 1px solid green;
+}

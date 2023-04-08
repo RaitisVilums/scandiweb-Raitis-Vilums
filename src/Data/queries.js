@@ -48,6 +48,7 @@ export const Product = gql`
       gallery
       description
       category
+      inStock
       attributes {
         id
         name
@@ -65,22 +66,6 @@ export const Product = gql`
         amount
       }
       brand
-    }
-  }
-`;
-
-export const ProductAttributes = gql`
-  query ($id: String!) {
-    attributeSet(id: $id) {
-      id
-      name
-      type
-      items {
-        id
-        name
-        type
-        value
-      }
     }
   }
 `;

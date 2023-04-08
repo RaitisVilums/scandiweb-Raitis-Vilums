@@ -38,7 +38,6 @@ export class Checkout extends PureComponent {
             attributes,
             selectedAttribute,
           } = product;
-          // console.log(`selected attribute - ${product} `);
           return (
             <Fragment key={id}>
               <div className="checkout-product">

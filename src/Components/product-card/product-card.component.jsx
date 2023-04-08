@@ -1,16 +1,13 @@
 import "./product-card.styles.scss";
-import ProductPrice from "../Utils/price/product-total.component";
-
 import { PureComponent } from "react";
-
+import { withRouter } from "react-router-dom";
 import { CartContext } from "../../Context/cart.context";
 import { ProductContext } from "../../Context/product.context";
 import htmlReactParser from "html-react-parser";
 
+import ProductPrice from "../Utils/price/product-total.component";
 import AttributeSet from "../Utils/attributeSet/attribute-set.component";
 import ImageGallery from "../Utils/imageGalery/image-gallery.component";
-
-import { withRouter } from "react-router-dom";
 
 export class ProductCard extends PureComponent {
   static contextType = ProductContext;
@@ -34,6 +31,10 @@ export class ProductCard extends PureComponent {
       selectedAttribute,
     });
   };
+
+  // Handler that checks if product is valid to add to the cart,
+  // also checks if it's in stock and, if the product attributes needs
+  // to be selected
   handleAddToCart = (addItemToCart, attributes) => {
     const { selectedAttribute } = this.state;
     const { id, name, gallery, brand, prices, inStock } = this.context.product;
@@ -62,16 +63,29 @@ export class ProductCard extends PureComponent {
     fetchProduct(productID);
   }
 
+  componentDidUpdate(prevProps) {
+    const { fetchProduct } = this.context;
+    const prevProductID = prevProps.match.params.id;
+    const currentProductID = this.props.match.params.id;
+
+    if (prevProductID !== currentProductID) {
+      fetchProduct(currentProductID);
+    }
+  }
+
   render() {
     const { product, isLoading } = this.context;
     return (
+      // Consumer allows you to use other contexts in the code
+      // rater than use static contextType
+      // getting the addItemToCart from CartContext to allow user to use
+      // the green btn to add item to the cart by it's default (first) attributes of the item
       <CartContext.Consumer>
         {({ addItemToCart }) => {
           if (isLoading) return "Loading...";
           if (!product) return "Error! No product data.";
           const { id, name, gallery, description, brand, prices, attributes } =
             product;
-          console.log(attributes);
           return (
             <div className="product-card" key={id}>
               <ImageGallery gallery={gallery} name={name} />

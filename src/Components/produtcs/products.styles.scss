@@ -2,9 +2,8 @@
   display: grid;
   place-items: center;
   grid-template-columns: repeat(3, 1fr);
-  padding-bottom: 10rem;
-  gap: 8rem 5rem;
-
+  padding: 0 0 10rem 0;
+  row-gap: 5rem;
   &-heading {
     padding: 8rem 0;
     font-size: 4.6rem;

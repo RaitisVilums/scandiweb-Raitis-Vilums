@@ -9,6 +9,8 @@ import { ReactComponent as VectorLeftIcon } from "./vector-left.svg";
 import { ReactComponent as VectorRightIcon } from "./vector-right.svg";
 import { ReactComponent as Logo } from "./logo.svg";
 
+// Combined all the svgs in 1 folder, imported them as ReactComponent
+// I don't know it's good or bad to do so
 export {
   BrandIcon,
   CartIcon,

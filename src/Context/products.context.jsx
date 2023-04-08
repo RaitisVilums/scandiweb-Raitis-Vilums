@@ -11,6 +11,9 @@ export class ProductsProvider extends PureComponent {
     productsByCategory: {},
     isLoading: false,
   };
+
+  // Fetches category products using category name
+  // stores it into a state
   fetchProducts = (categoryName) => {
     this.setState({ isLoading: true });
     const variables = { input: { title: categoryName } };
@@ -25,6 +28,7 @@ export class ProductsProvider extends PureComponent {
       .catch((error) => {
         this.setState({ isLoading: false });
       });
+    console.log(this.state.productsByCategory);
   };
   render() {
     const { productsByCategory, isLoading } = this.state;

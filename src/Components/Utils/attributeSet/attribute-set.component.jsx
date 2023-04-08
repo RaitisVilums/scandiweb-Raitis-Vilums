@@ -1,5 +1,5 @@
-import React, { PureComponent, Fragment } from "react";
 import "./attribute-set.styles.scss";
+import React, { PureComponent, Fragment } from "react";
 
 export class AttributeSet extends PureComponent {
   render() {

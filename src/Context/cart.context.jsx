@@ -1,5 +1,6 @@
 import { createContext, PureComponent } from "react";
 
+// Add an item to the cart
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
     (cartItem) =>
@@ -7,7 +8,7 @@ const addCartItem = (cartItems, productToAdd) => {
       JSON.stringify(cartItem.selectedAttribute) ===
         JSON.stringify(productToAdd.selectedAttribute)
   );
-
+  // if item is in the cart, increment the quantity
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
       cartItem.id === productToAdd.id &&
@@ -20,6 +21,8 @@ const addCartItem = (cartItems, productToAdd) => {
         : cartItem
     );
   }
+
+  // else add the item to the cart and set the quantity to 1
 
   return [
     ...cartItems,
@@ -36,6 +39,7 @@ const addCartItem = (cartItems, productToAdd) => {
   ];
 };
 
+// Get default attributes for a product
 const getDefaultAttributes = (attributes) => {
   const selectedAttribute = {};
   attributes.forEach((attribute) => {
@@ -59,18 +63,21 @@ export class CartProvider extends PureComponent {
     cartItems: [],
   };
 
+  // Tooggle the cart open and closed
   setIsCartOpen = () => {
     this.setState((prevState) => ({
       isCartOpen: !prevState.isCartOpen,
     }));
   };
 
+  // Add an item to the cart
   addItemToCart = (productToAdd) => {
     this.setState((state) => ({
       cartItems: addCartItem(state.cartItems, productToAdd),
     }));
   };
 
+  // Add an item with default attributes to the cart
   addItemWithDefaultAttributes = (productToAdd) => {
     const defaultSelectedAttribute = getDefaultAttributes(
       productToAdd.attributes
@@ -83,6 +90,7 @@ export class CartProvider extends PureComponent {
     }));
   };
 
+  // Increment the quantity of a specific item in the cart
   incrementQuantity = (productId, selectedAttribute) => {
     this.setState((state) => {
       const updatedCartItems = state.cartItems.map((item) => {
@@ -100,7 +108,7 @@ export class CartProvider extends PureComponent {
       };
     });
   };
-
+  // Decrement the quantity of a specific item in the cart
   decrementQuantity = (productId, selectedAttribute) => {
     this.setState((state) => {
       const updatedCartItems = state.cartItems
@@ -121,12 +129,14 @@ export class CartProvider extends PureComponent {
     });
   };
 
+  // Update the cart items in local storage whenever the component updates a.k.a. reloads
   componentDidUpdate(prevState) {
     if (prevState.cartItems !== this.state.cartItems) {
       localStorage.setItem("cartItems", JSON.stringify(this.state.cartItems));
     }
   }
 
+  // Get the cart items from local storage when the component mounts
   componentDidMount() {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     this.setState({ cartItems: cartItems });

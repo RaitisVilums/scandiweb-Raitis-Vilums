@@ -1,12 +1,10 @@
 import "./products.styles.scss";
-
 import React, { PureComponent } from "react";
-import ProductPrice from "../Utils/price/product-total.component";
-
-import { ProductsContext } from "../../Context/products.context";
-import { CartContext } from "../../Context/cart.context";
 import { withRouter, Link } from "react-router-dom";
+import { CartContext } from "../../Context/cart.context";
+import { ProductsContext } from "../../Context/products.context";
 
+import ProductPrice from "../Utils/price/product-total.component";
 import CategoryPage from "../category-page/category-page.component";
 
 class Products extends PureComponent {
@@ -39,7 +37,7 @@ class Products extends PureComponent {
     }
 
     const { products } = productsByCategory;
-
+    // console.log(products);
     return (
       <>
         <CategoryPage />
@@ -47,7 +45,11 @@ class Products extends PureComponent {
           {({ addItemWithDefaultAttributes }) => (
             <section className="products">
               {products.map((product) => {
-                const { id, gallery, name, prices, inStock } = product;
+                const { id, gallery, name, prices, inStock, attributes } =
+                  product;
+                {
+                  /* console.log(attributes); */
+                }
                 return (
                   <div
                     className={inStock ? `product` : `product out-of-stock`}

@@ -33,7 +33,6 @@ export class CartTotal extends PureComponent {
       const price = item.prices.find(
         (price) => price.currency.symbol === selectedCurrency.symbol
       );
-      //   console.log(price.amount, price.currency.symbol);
       if (price) {
         return total + price.amount * item.quantity;
       } else {
@@ -41,7 +40,7 @@ export class CartTotal extends PureComponent {
         return total;
       }
     }, 0);
-    console.log(total);
+
     const tax = total * 0.21;
     const totalCost = tax + total;
     this.setState({

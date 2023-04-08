@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { VectorLeftIcon, VectorRightIcon } from "../../../Assets/_index";
 
 export class ProductImageSlider extends PureComponent {
   state = {
@@ -30,11 +31,15 @@ export class ProductImageSlider extends PureComponent {
           <button
             className="btn-next left"
             onClick={() => this.handleIncrement(1)}
-          ></button>
+          >
+            <VectorLeftIcon />
+          </button>
           <button
             className="btn-next right"
             onClick={() => this.handleIncrement(-1)}
-          ></button>
+          >
+            <VectorRightIcon />
+          </button>
         </div>
       </div>
     );

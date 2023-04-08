@@ -1,13 +1,15 @@
 import "./cart-dropdown.styles.scss";
+
+import { PureComponent, Fragment } from "react";
+import { CartContext } from "../../Context/cart.context";
+import { Link } from "react-router-dom";
+
 import Button from "../Utils/button/button.component";
 import Checkbox from "../Utils/checkbox/checkbox.component";
 import ProductPrice from "../Utils/price/product-total.component";
 import CartTotal from "../Utils/price/cart-total.component";
 import EmptyCart from "../Utils/placeholders/cart-empty.component";
 import ChangeQuantity from "../Utils/quantityChange/quantity.component";
-import { CartContext } from "../../Context/cart.context";
-import { PureComponent, Fragment } from "react";
-import { Link } from "react-router-dom";
 
 export class CartDropdown extends PureComponent {
   static contextType = CartContext;
@@ -51,11 +53,10 @@ export class CartDropdown extends PureComponent {
                   </span>
 
                   {attributes.map((attribute) => (
-                    <Fragment>
+                    <Fragment key={attribute.id}>
                       <p className="checkbox-label">{attribute.id}:</p>
                       <div className="justawrapper">
                         {attribute.items.map((item) => {
-                          console.log(attribute.type);
                           return (
                             <Checkbox
                               key={item.id}

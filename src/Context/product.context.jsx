@@ -13,6 +13,8 @@ export class ProductProvider extends PureComponent {
     isLoading: false,
   };
 
+  // Fetches the products data acording to it's id
+  // Saves it to the state
   fetchProduct = (productID) => {
     this.setState({ isLoading: true });
     const variables = { id: productID };

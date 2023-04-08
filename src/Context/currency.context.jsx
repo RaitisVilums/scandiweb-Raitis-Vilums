@@ -15,6 +15,7 @@ export class CurrencyProvider extends PureComponent {
     selectedCurrency: { label: "USD", symbol: "$" },
   };
 
+  // Fetch currency data from a GraphQL server and stored currency from local storage when the component mounts
   componentDidMount() {
     const storedCurrency = localStorage.getItem("selectedCurrency");
     if (storedCurrency) {
@@ -22,7 +23,8 @@ export class CurrencyProvider extends PureComponent {
     }
     this.fetchCurrency();
   }
-
+  // Fetch the currency data from query Currency
+  // save the data to currency state
   fetchCurrency = () => {
     this.setState({ loading: true });
     this.props.client
@@ -35,6 +37,7 @@ export class CurrencyProvider extends PureComponent {
       });
   };
 
+  // Updates the selectedCurrency and saves it to local storage
   currencyChangeHandler = (symbol) => {
     const selectedCurrency = this.state.currency.find(
       (currency) => currency.symbol === symbol
@@ -45,13 +48,13 @@ export class CurrencyProvider extends PureComponent {
 
   render() {
     const { currency, selectedCurrency } = this.state;
-    const value = {
+    const contextValue = {
       currency,
       currencyChangeHandler: this.currencyChangeHandler,
       selectedCurrency,
     };
     return (
-      <CurrencyContext.Provider value={value}>
+      <CurrencyContext.Provider value={contextValue}>
         {this.props.children}
       </CurrencyContext.Provider>
     );

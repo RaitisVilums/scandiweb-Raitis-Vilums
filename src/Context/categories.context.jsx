@@ -13,10 +13,12 @@ export class CategoriesProvider extends PureComponent {
     isLoading: false,
   };
 
+  // When component mounts (loads ) fetch the categories
   componentDidMount() {
     this.fetchCategories();
   }
-
+  // Fetching the data from quert CATEGORIES
+  // Setting the categories to fetched data
   fetchCategories = () => {
     this.setState({ isLoading: true });
     this.props.client
@@ -25,12 +27,13 @@ export class CategoriesProvider extends PureComponent {
         this.setState({ categories: data.categories, isLoading: false });
       })
       .catch((error) => {
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, error });
       });
   };
 
   render() {
     const { categories, isLoading, error } = this.state;
+    // If there is an error, render an error message
     if (error) {
       return (
         <Fragment>
@@ -39,6 +42,7 @@ export class CategoriesProvider extends PureComponent {
         </Fragment>
       );
     }
+    // If data is still loading, render a loading message
     if (isLoading) {
       return (
         <Fragment>
@@ -47,7 +51,6 @@ export class CategoriesProvider extends PureComponent {
         </Fragment>
       );
     }
-
     const contextValue = { categories };
     return (
       <CategoriesContext.Provider value={contextValue}>

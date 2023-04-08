@@ -1,11 +1,12 @@
-import { Fragment, PureComponent } from "react";
 import "./checkout.styles.scss";
+import { Fragment, PureComponent } from "react";
+import { CartContext } from "../../Context/cart.context";
+
 import Button from "../Utils/button/button.component";
 import Checkbox from "../Utils/checkbox/checkbox.component";
 import ProductPrice from "../Utils/price/product-total.component";
 import CheckoutTotal from "../Utils/price/checkout-total.component";
 import CheckoutEmpty from "../Utils/placeholders/checkout-empty.component";
-import { CartContext } from "../../Context/cart.context";
 import ChangeQuantity from "../Utils/quantityChange/quantity.component";
 import ProductImageSlider from "../Utils/imageSlider/image-slider.component";
 

@@ -1,6 +1,7 @@
 .checkout {
   display: flex;
   flex-direction: column;
+  padding: 0 10rem 10rem 10rem;
   &-heading {
     font-size: 3.2rem;
     margin-top: 8rem;
@@ -26,6 +27,10 @@
 .checkout-product {
   display: flex;
   margin-bottom: 2.4rem;
+
+  & hr {
+    background: #e5e5e5;
+  }
   &-description {
     display: flex;
     flex-direction: column;
@@ -114,16 +119,4 @@
   cursor: pointer;
   background: rgba(0, 0, 0, 0.73);
   border: none;
-}
-
-.left {
-  background-image: url("../../Assets/vector-left.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.right {
-  background-image: url("../../Assets/vector-right.svg");
-  background-position: center;
-  background-repeat: no-repeat;
 }

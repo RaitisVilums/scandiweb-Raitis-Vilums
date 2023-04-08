@@ -1,6 +1,6 @@
 import "./category-page.styles.scss";
-import { Link } from "react-router-dom";
 import { PureComponent } from "react";
+import { Link } from "react-router-dom";
 import { CategoriesContext } from "../../Context/categories.context";
 
 class CategoryPage extends PureComponent {

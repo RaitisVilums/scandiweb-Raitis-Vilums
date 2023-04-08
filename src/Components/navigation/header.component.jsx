@@ -1,10 +1,11 @@
 import "./header.styles.scss";
+import { PureComponent } from "react";
+import { CartContext } from "../../Context/cart.context";
+
 import NavBar from "./navbar.component";
 import Cart from "../cart/cart.component";
-import { PureComponent } from "react";
 import Currency from "./currency.component";
 import { Logo } from "../../Assets/_index";
-import { CartContext } from "../../Context/cart.context";
 
 export class Header extends PureComponent {
   static contextType = CartContext;
